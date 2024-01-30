@@ -1,4 +1,6 @@
 import { Server } from "socket.io"
+import { data } from "./data"
+import type { Room } from "./data"
 
 const SocketHandler = (req: any, res: any) => {
     if (!res.socket.server.io) {
@@ -10,8 +12,8 @@ const SocketHandler = (req: any, res: any) => {
             console.log(`Socket ${socket.id} connected.`);
 
             // Listen for incoming messages and broadcast to all clients
-            socket.on("ping", () => {
-                io.emit("ping");
+            socket.on("sync", (data: Room[]) => {
+                io.emit("sync", data);
             });
 
             // Clean up the socket on disconnect
