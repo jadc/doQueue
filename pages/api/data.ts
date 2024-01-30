@@ -1,9 +1,9 @@
-type Room = {
+export type Room = {
     owner_id: string,
     queues: Queue[]
 }
 
-type Queue = {
+export type Queue = {
     name: string,
     members: string[]
 }
