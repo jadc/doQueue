@@ -1,0 +1,12 @@
+services:
+    frontend:
+        build:
+            context: .
+        container_name: doqueue
+        restart: always
+        ports:
+            - 3000:3000
+        volumes:
+            - .:/app
+            - /app/.next    
+            - /app/node_modules
