@@ -1,2 +1,1 @@
-# doQueue
-A Kahoot-style web app for creating a queue for a classroom.
+This branch is an abandoned Next.js version of the project.
