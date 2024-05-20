@@ -6,7 +6,7 @@ import io from "socket.io-client"
 import type { Room } from "../../../pages/api/data"
 
 let socket: any;
-const socketListener = async (setter: any) => {
+const socketListener = async (setter: React.Dispatch<React.SetStateAction<Room[]>>) => {
     await fetch("/api/socket")
     console.log("listening")
     socket = io();
@@ -20,7 +20,7 @@ const socketListener = async (setter: any) => {
 
 export default function Room({ params }: any) {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState<Room[]>([]);
 
     useEffect(() => {socketListener(setData)}, [])
 
@@ -33,6 +33,16 @@ export default function Room({ params }: any) {
 
     const test = () => {
         console.log("emit")
+        data.push({
+    owner_id: "abc", 
+    queues: [
+        { 
+            name: "my queue", 
+            members: ["bob", "alice"]
+        }
+    ] 
+});
+        setData(data);
         socket.emit("sync", data);
     }
 
@@ -40,7 +50,6 @@ export default function Room({ params }: any) {
         <div>
             <h1>Room: {params.room}</h1>
             <p onClick={test}>Ping</p>
-            <p>{data}</p>
         </div>
     );
 };
